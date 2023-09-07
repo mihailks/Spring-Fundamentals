@@ -11,7 +11,6 @@ public class CurrentUser {
 
     public CurrentUser() {
     }
-
     public Long getId() {
         return id;
     }

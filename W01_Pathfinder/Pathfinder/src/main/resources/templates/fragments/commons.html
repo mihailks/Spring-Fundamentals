@@ -20,30 +20,37 @@
 <header th:fragment="navigation">
   <nav class="main-nav">
     <ul>
-      <li>
-        <a href="/">Home</a>
-      </li>
-      <li>
-        <a href="/users/login">Login</a>
-      </li>
-      <li>
-        <a href="/users/register">Register</a>
-      </li>
-      <li>
-        <a href="/about">About</a>
-      </li>
-      <li>
-        <a href="/routes/add">Add new route</a>
-      </li>
-      <li>
-        <a href="/users/profile">Profile</a>
-      </li>
-      <li>
-        <a href="/">Admin</a>
-      </li>
-      <li>
-        <a href="/users/logout">Logout</a>
-      </li>
+     <th:block th:if="${@currentUser.id==null}">
+       <li>
+         <a href="/">Home</a>
+       </li>
+       <li>
+         <a href="/users/login">Login</a>
+       </li>
+       <li>
+         <a href="/users/register">Register</a>
+       </li>
+       <li>
+         <a href="/about">About</a>
+       </li>
+     </th:block>
+
+      <th:block th:unless="${@currentUser.id==null}"  th:object="${@currentUser}">
+        <li>
+          <a href="/routes/add">Add new route</a>
+        </li>
+        <li>
+          <a th:href="@{/users/profile/{id}(id=${@currentUser.id})}">Profile</a>
+        </li>
+        <li>
+          <a href="/">Admin</a>
+        </li>
+        <li>
+          <a href="/users/logout">Logout</a>
+        </li>
+      </th:block>
+
+
     </ul>
   </nav>
 </header>

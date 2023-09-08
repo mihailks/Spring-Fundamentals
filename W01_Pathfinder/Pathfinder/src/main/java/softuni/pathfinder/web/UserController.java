@@ -5,14 +5,12 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import softuni.pathfinder.model.bindingModel.UserLoginBindingModel;
 import softuni.pathfinder.model.bindingModel.UserRegisterBindingModel;
 import softuni.pathfinder.model.serviceModel.UserServiceModel;
+import softuni.pathfinder.model.viewModel.UserViewModel;
 import softuni.pathfinder.service.UserService;
 
 @Controller
@@ -106,8 +104,17 @@ public class UserController {
 
     @GetMapping("/logout")
     public String logout(){
+
         userService.logOutUser();
+
         return "redirect:/";
+    }
+
+    @GetMapping("/profile/{id}")
+    public String profile(@PathVariable Long id, Model model){
+        model.addAttribute("user", modelMapper
+                .map(userService.findById(id), UserViewModel.class));
+        return "profile";
     }
 
 }

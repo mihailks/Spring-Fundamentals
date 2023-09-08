@@ -4,13 +4,13 @@ import jakarta.persistence.*;
 
 @Entity
 @Table(name = "pictures")
-public class Pictures extends BaseEntity {
+public class Picture extends BaseEntity {
     private String title;
     private String url;
     private User author;
     private Route route;
 
-    public Pictures() {
+    public Picture() {
     }
 
     @Column(nullable = false)

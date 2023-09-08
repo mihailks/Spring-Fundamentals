@@ -62,6 +62,11 @@ public class UserController {
             return "redirect:register";
         }
 
+        boolean isUsernameTaken = userService.isUsernameTaken(userRegisterBindingModel.getUsername());
+        if (isUsernameTaken){
+            //todo
+        }
+
         userService.registerUser(modelMapper
                 .map(userRegisterBindingModel, UserServiceModel.class));
 

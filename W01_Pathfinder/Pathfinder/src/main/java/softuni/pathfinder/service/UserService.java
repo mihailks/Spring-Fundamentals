@@ -12,4 +12,6 @@ public interface UserService {
     void logOutUser();
 
     UserServiceModel findById(Long id);
+
+    boolean isUsernameTaken(String username);
 }

@@ -1,4 +1,4 @@
-package softuni.pathfinder.model.entity;
+package softuni.coffeeshop.model.entity;
 
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -8,18 +8,18 @@ import jakarta.persistence.MappedSuperclass;
 @MappedSuperclass
 public abstract class BaseEntity {
 
-    private Long id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long Id;
 
     public BaseEntity() {
     }
 
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     public Long getId() {
-        return id;
+        return Id;
     }
 
     public void setId(Long id) {
-        this.id = id;
+        Id = id;
     }
 }

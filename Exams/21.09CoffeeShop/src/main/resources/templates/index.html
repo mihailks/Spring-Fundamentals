@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml"
       xmlns:th="http://www.thymeleaf.org">>
-<head th:replace="fragments/commons::head"></head>
+<head th:replace="~{fragments/commons::head}"></head>
 <body class="bg-secondary">
-<header th:replace="/fragments/commons::nav"></header>
+<header th:replace="~{/fragments/commons::nav}"></header>
 <main role="main" class="bg-secondary">
 
     <div class="jumbotron">
@@ -51,6 +51,6 @@
         <hr class="bg-light">
     </div>
 </main>
-<footer th:replace="/fragments/commons::footer"></footer>
+<footer th:replace="~{/fragments/commons::footer}"></footer>
 </body>
 </html>

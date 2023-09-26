@@ -1,5 +1,6 @@
 package softuni.coffeeshop.web;
 
+import jakarta.servlet.http.HttpSession;
 import jakarta.validation.Valid;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Controller;
@@ -102,10 +103,18 @@ public class UserController {
         return new UserLoginBindingModel();
     }
 
-    @GetMapping("logout")
-    public String logout(){
-        userService.logoutUser();
+    //или това или долното за махана на юзър за сега без секюрити
+//    @GetMapping("logout")
+//    public String logout(){
+//        userService.logoutUser();
+//
+//        return "redirect:/";
+//    }
 
+
+    @GetMapping("logout")
+    public String logout(HttpSession httpSession) {
+        httpSession.invalidate();
         return "redirect:/";
     }
 

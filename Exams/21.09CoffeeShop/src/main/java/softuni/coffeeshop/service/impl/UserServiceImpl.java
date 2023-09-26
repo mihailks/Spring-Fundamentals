@@ -4,9 +4,13 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 import softuni.coffeeshop.model.entity.User;
 import softuni.coffeeshop.model.service.UserServiceModel;
+import softuni.coffeeshop.model.view.UserViewModel;
 import softuni.coffeeshop.repository.UserRepository;
 import softuni.coffeeshop.service.UserService;
 import softuni.coffeeshop.util.CurrentUser;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Service
 public class UserServiceImpl implements UserService {
@@ -47,5 +51,28 @@ public class UserServiceImpl implements UserService {
     public void logoutUser() {
         currentUser.setId(null);
         currentUser.setUsername(null);
+    }
+
+    @Override
+    public User findById(Long id) {
+        return userRepository
+                .findById(id)
+                .orElse(null);
+    }
+
+    @Override
+    public List<UserViewModel> findAllUserAndCountOfOrdersOrderByOrdersDesc() {
+        return userRepository
+                .findAllByOrderByOrderDesc()
+                .stream()
+                .map(user -> {
+                    UserViewModel userViewModel = new UserViewModel();
+
+                    userViewModel.setUserName(user.getUsername());
+                    userViewModel.setCountOfOrders(user.getOrders().size());
+
+                    return userViewModel;
+                })
+                .collect(Collectors.toList());
     }
 }

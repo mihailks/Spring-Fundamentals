@@ -1,15 +1,14 @@
 package softuni.coffeeshop.model.entity;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
+
+import java.util.Set;
 
 @Entity
 @Table(name = "users")
 public class User extends BaseEntity {
     @Column(nullable = false, unique = true)
     private String username;
-
     private String firstName;
     @Column(nullable = false)
     private String lastName;
@@ -17,6 +16,9 @@ public class User extends BaseEntity {
     private String password;
     @Column(nullable = false, unique = true)
     private String email;
+    @OneToMany(mappedBy = "employee", fetch = FetchType.EAGER)
+    private Set<Order> orders;
+
 
     public User() {
     }
@@ -59,5 +61,13 @@ public class User extends BaseEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Set<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(Set<Order> orders) {
+        this.orders = orders;
     }
 }

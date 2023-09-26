@@ -16,7 +16,7 @@ public class UserLoginBindingModel {
     public void setUsername(String username) {
         this.username = username;
     }
-    @Size(min = 3)
+    @Size(min = 3, message = "my password error")
     public String getPassword() {
         return password;
     }

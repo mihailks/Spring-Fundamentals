@@ -32,5 +32,11 @@ public class UserLoginController {
 
     }
 
+    @GetMapping("/logout")
+    public String logout(){
+        userService.logoutUser();
+        return "index";
+    }
+
 
 }

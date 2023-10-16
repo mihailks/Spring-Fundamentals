@@ -2,9 +2,7 @@ package com.softuni.mobilelele.model.entity;
 
 import com.softuni.mobilelele.model.entity.enums.EngineEnum;
 import com.softuni.mobilelele.model.entity.enums.TransmissionEnum;
-import jakarta.persistence.Entity;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import org.hibernate.annotations.JdbcType;
 import org.hibernate.annotations.JdbcTypeCode;
 
@@ -21,7 +19,9 @@ public class OfferEntity extends BaseEntity {
     private String description;
     @ManyToOne
     private ModelEntity model;
+    @Enumerated(EnumType.STRING)
     private EngineEnum engine;
+    @Enumerated(EnumType.STRING)
     private TransmissionEnum transmission;
     private String imageUrl;
     private Long mileage;

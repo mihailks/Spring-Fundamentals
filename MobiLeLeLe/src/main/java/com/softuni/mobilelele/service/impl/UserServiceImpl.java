@@ -29,9 +29,7 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public void registerUser(UserRegistrationDTO userRegistrationDTO) {
-        // FIXME DOEST`N MAP
         UserEntity user = modelMapper.map(userRegistrationDTO, UserEntity.class);
-        System.out.println(user);
         userRepository.save(map(userRegistrationDTO));
 //        userRepository.save(user);
     }

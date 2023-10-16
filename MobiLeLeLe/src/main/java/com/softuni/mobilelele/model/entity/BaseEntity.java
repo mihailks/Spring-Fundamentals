@@ -11,9 +11,9 @@ public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-    @GeneratedValue(generator = "uuid")
-    @GenericGenerator(name = "uuid", type = org.hibernate.id.uuid.UuidGenerator.class)
-    private String UUID;
+//    @GeneratedValue(generator = "uuid")
+//    @GenericGenerator(name = "uuid", type = org.hibernate.id.uuid.UuidGenerator.class)
+//    private String UUID;
 
     public BaseEntity() {
     }
@@ -26,11 +26,11 @@ public class BaseEntity {
         this.id = id;
     }
 
-    public String getUUID() {
-        return UUID;
-    }
-
-    public void setUUID(String UUID) {
-        this.UUID = UUID;
-    }
+//    public String getUUID() {
+//        return UUID;
+//    }
+//
+//    public void setUUID(String UUID) {
+//        this.UUID = UUID;
+//    }
 }

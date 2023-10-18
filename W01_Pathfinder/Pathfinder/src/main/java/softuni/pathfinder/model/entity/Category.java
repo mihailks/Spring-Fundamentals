@@ -5,11 +5,11 @@ import softuni.pathfinder.model.entity.enums.CategoryNameEnum;
 
 @Entity
 @Table(name = "categories")
-public class Categories extends BaseEntity {
+public class Category extends BaseEntity {
     private CategoryNameEnum name;
     private String description;
 
-    public Categories() {
+    public Category() {
     }
 
     @Enumerated(EnumType.STRING)

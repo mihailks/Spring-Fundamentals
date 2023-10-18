@@ -60,4 +60,9 @@ public class UserServiceImpl implements UserService {
     public boolean isUsernameTaken(String username) {
         return userRepository.findFirstByUsername(username).isPresent();
     }
+
+    @Override
+    public User findCurrentLoginUserEntity() {
+        return userRepository.findById(currentUser.getId()).orElse(null);
+    }
 }

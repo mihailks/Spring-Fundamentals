@@ -15,7 +15,7 @@ public class Route extends BaseEntity {
     private String videoURL;
     private String description;
     private Set<Picture> pictures;
-    private Set<Categories> categories;
+    private Set<Category> categories;
 
     public Route() {
     }
@@ -75,11 +75,11 @@ public class Route extends BaseEntity {
     }
 
     @ManyToMany(fetch = FetchType.EAGER)
-    public Set<Categories> getCategories() {
+    public Set<Category> getCategories() {
         return categories;
     }
 
-    public void setCategories(Set<Categories> categories) {
+    public void setCategories(Set<Category> categories) {
         this.categories = categories;
     }
 

@@ -3,6 +3,7 @@ package com.softuni.mobilelele.model.dto;
 import com.softuni.mobilelele.model.entity.ModelEntity;
 import com.softuni.mobilelele.model.entity.enums.EngineEnum;
 import com.softuni.mobilelele.model.entity.enums.TransmissionEnum;
+import com.softuni.mobilelele.model.validation.YearNotInTheFuture;
 import jakarta.validation.constraints.*;
 
 import java.math.BigDecimal;
@@ -15,7 +16,11 @@ public record CreateOfferDTO(@Size(min = 5, max = 512)
                              @NotEmpty String imageUrl,
                              @NotNull @Positive Long mileage,
                              @NotNull @Positive BigDecimal price,
-                             @NotNull @Positive @Min(1930) Integer year) {
+                             @YearNotInTheFuture
+                             @NotNull(message = "year can`t be empty")
+                             @Positive
+                             @Min(1930)
+                             Integer year) {
 
 
 

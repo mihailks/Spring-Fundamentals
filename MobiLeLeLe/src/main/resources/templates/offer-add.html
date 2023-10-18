@@ -7,12 +7,11 @@
 
 <div th:replace="~{fragments/navbar}"></div>
 
-
 <div class="container">
     <h2 class="text-center text-white">Upload Offer</h2>
-    <form th:method="POST"
-          th:action="@{/offer/add}"
+    <form th:action="@{/offer/add}"
           th:object="${createOfferDTO}"
+          th:method="POST"
           class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
         <div class="row">
 
@@ -27,10 +26,10 @@
                             th:each="brand : ${brands}"
                             th:label="${brand.name}">
                         <option
-                        th:each="currentModel : ${brand.models}"
-                        th:text="${currentModel.name}"
-                        th:value="${currentModel.id}"
-                        th:selected="*{modelId} == ${currentModel.id}">
+                                th:each="currentModel : ${brand.models}"
+                                th:text="${currentModel.name}"
+                                th:value="${currentModel.id}"
+                                th:selected="*{modelId} == ${currentModel.id}">
                             Model
                         </option>
 
@@ -43,7 +42,6 @@
             <div class="form-group col-md-6 mb-3">
                 <label for="price" class="text-white font-weight-bold">Price</label>
                 <input id="price"
-                       th:name = "price"
                        th:field="*{price}"
                        th:errorclass="is-invalid"
                        type="number"
@@ -58,14 +56,14 @@
             <div class="form-group col-md-6 mb-3">
                 <label class="text-center text-white font-weight-bold" for="engine">Engine</label>
                 <select id="engine"
-                        th:name="engine"
+                        th:field="*{engine}"
                         th:errorclass="is-invalid"
                         class="form-control">
                     <option value="">- Select engine type -</option>
                     <option th:each="e : ${engines}"
                             th:text="${e}"
-                            th:value="${e}"
-                            th:selected="${e}==*{engine}">
+                            th:value="${e}">
+
                     </option>
                 </select>
                 <p class="invalid-feedback errors alert alert-danger">
@@ -75,14 +73,13 @@
             <div class="form-group col-md-6 mb-3">
                 <label class="text-center text-white font-weight-bold" for="transmission">Transmission</label>
                 <select id="transmission"
-                        th:name="transmission"
+                        th:field="*{transmission}"
                         th:errorclass="is-invalid"
                         class="form-control">
                     <option value="">- Select transmission type -</option>
                     <option th:each="t : ${T(com.softuni.mobilelele.model.entity.enums.TransmissionEnum).values()}"
                             th:text="${t}"
-                            th:value="${t}"
-                            th:selected="${t}==*{transmission}">
+                            th:value="${t}">
                     </option>
                 </select>
                 <p class="invalid-feedback errors alert alert-danger">
@@ -94,20 +91,19 @@
             <div class="form-group col-md-6 mb-3">
                 <label for="year" class="text-white font-weight-bold">Year</label>
                 <input id="year"
-                       th:name="year"
                        th:field="*{year}"
                        th:errorclass="is-invalid"
                        type="number"
                        class="form-control"
                        placeholder="Manufacturing year"/>
-                <p class="invalid-feedback errors alert alert-danger">
-                    Manufacturing year is required.
+                <p th:if="${#fields.hasErrors('year')}"
+                   class="invalid-feedback errors alert alert-danger"
+                   th:errors="*{year}">
                 </p>
             </div>
             <div class="form-group col-md-6 mb-3">
                 <label for="mileage" class="text-white font-weight-bold">Mileage</label>
                 <input id="mileage"
-                       th:name="mileage"
                        th:field="*{mileage}"
                        th:errorclass="is-invalid"
                        type="number"
@@ -122,7 +118,6 @@
         <div class="form-group">
             <label class="text-white font-weight-bold" for="description">Description</label>
             <textarea id="description"
-                      th:name="description"
                       th:field="*{description}"
                       th:errorclass="is-invalid"
                       type="textarea"
@@ -136,8 +131,7 @@
         <div class="form-group">
             <label class="text-white font-weight-bold" for="imageUrl">Image URL</label>
             <input id="imageUrl"
-                   th:name="imageUrl"
-                   th:field = "*{imageUrl}"
+                   th:field="*{imageUrl}"
                    th:errorclass="is-invalid"
                    type="url" class="form-control"
                    placeholder="Put vehicle image URL here">

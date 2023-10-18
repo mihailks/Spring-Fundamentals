@@ -1,5 +1,6 @@
 package softuni.pathfinder.service;
 
+import softuni.pathfinder.model.entity.User;
 import softuni.pathfinder.model.serviceModel.UserServiceModel;
 
 public interface UserService {
@@ -14,4 +15,6 @@ public interface UserService {
     UserServiceModel findById(Long id);
 
     boolean isUsernameTaken(String username);
+
+    User findCurrentLoginUserEntity();
 }

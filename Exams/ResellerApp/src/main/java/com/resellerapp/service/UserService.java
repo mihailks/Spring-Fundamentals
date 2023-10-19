@@ -1,6 +1,7 @@
 package com.resellerapp.service;
 
 import com.resellerapp.model.bindingModel.UserRegisterBindingModel;
+import com.resellerapp.model.entity.UserEntity;
 import com.resellerapp.model.serviceModel.UserServiceModel;
 
 public interface UserService {
@@ -11,4 +12,6 @@ public interface UserService {
     void loginUser(Long id, String password);
 
     void logout();
+
+    UserEntity findById(Long id);
 }

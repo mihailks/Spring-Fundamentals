@@ -10,20 +10,22 @@
             <div class="col-6 mt-1 mb-1">
                 <div>
                     <h3 class="mySticky bg-gray text-dark  mb-0 mt-2">My Offers</h3>
-                    <h6 class="mySticky bg-gray text-dark  mb-0 mt-0">Username: {loggedUsername}</h6>
+                    <h6 class="mySticky bg-gray text-dark  mb-0 mt-0" th:text="|Username: ${username}|"></h6>
                     <div class="bg-dark rounded m-auto" style="height: 31vh; overflow: auto">
                         <table class="table table-striped table-dark">
-                            <tr>
+                            <tr th:each="o : ${offers}" th:object="${o}">
                                 <td class="bg-info" scope="row" style="width: 5%">
                                     <img class="mr-2 " src="/img/etiquette.png" alt="Etiquette" width="35px"
                                          height="35px">
                                 </td>
-                                <td style="width: 5%" class="bg-info">{condition}</td>
-                                <td class="bg-primary" style="width: 15%">{price} €</td>
-                                <td>{description}</td>
-                                <td style="width: 15%"><a class="btn-danger btn" href="/">Remove</a>
+                                <td style="width: 5%" class="bg-info" th:text="*{condition}">{condition}</td>
+                                <td class="bg-primary" style="width: 15%" th:text="*{price}">{price} €</td>
+                                <td th:text="*{description}">{description}</td>
+                                <td style="width: 15%"><a class="btn-danger btn"
+                                                          th:href="@{/delete/{id}(id=*{id})}">Remove</a>
                                 </td>
                             </tr>
+
                         </table>
                     </div>
                 </div>
@@ -32,16 +34,16 @@
                     <h3 class="mySticky bg-gray text-dark  mb-0 mt-2">Bought Items</h3>
                     <div class="bg-dark rounded m-auto" style="height: 31vh; overflow: auto">
                         <table class="table table-striped table-dark">
-                            <tr>
+                            <tr th:each="b : ${bought}" th:object="${b}">
                                 <td class="bg-info" scope="row" style="width: 5%">
                                     <img class="mr-2 " src="/img/etiquette.png" alt="Etiquette" width="35px"
                                          height="35px">
                                 </td>
                                 <td style="width: 5%" class="bg-info">
-                                    <a>{itemDescritpion}</a>
+                                    <a th:text="*{description}">{itemDescritpion}</a>
                                 </td>
                                 <td class="bg-primary" style="width: 15%">
-                                    <a>{itemPrice} €</a>
+                                    <a th:text="*{price}">{itemPrice} €</a>
                                 </td>
                             </tr>
                         </table>
@@ -51,20 +53,21 @@
 
             <div class="col-6 mt-1 mb-1">
                 <h3 class="mySticky bg-gray text-dark  mb-0 mt-2">All Other Offers</h3>
-                <h6 class="mySticky bg-gray text-dark  mb-0 mt-0">{totalOffers}</h6>
+                <h6 class="mySticky bg-gray text-dark  mb-0 mt-0" th:text="|${otherOffers.size()} Offers|"></h6>
                 <div class="bg-dark rounded m-auto" style="height: 67vh; overflow: auto">
                     <div>
                         <div>
                             <br>
-                            <ul class="list-group list-group-horizontal text-dark">
+                            <ul class="list-group list-group-horizontal text-dark" th:each="o : ${otherOffers}"
+                                th:object="${o}">
                                 <li class="list-group-item">
                                     <table>
                                         <tr>
                                             <td style="width: 35%">
-                                                <a>{sellersUsername} sells:</a>
+                                                <a th:text="|*{username} sells:|"></a>
                                             </td>
                                             <td>
-                                                <a>{offerDescription}</a>
+                                                <a th:text="*{description}">{offerDescription}</a>
                                             </td>
                                         </tr>
                                     </table>
@@ -73,13 +76,14 @@
                                     <table>
                                         <tr>
                                             <td style="width: 40%">
-                                                <a>Condition: {offerCondition}</a>
+                                                <a th:text="|Condition: *{condition}|"></a>
                                             </td>
                                             <td class="text-primary" style="width: 40%">
-                                                <a>Price: {offerPrice} €</a>
+                                                <a th:text="|Price: *{price}|"> €</a>
                                             </td>
                                             <td>
-                                                <a class="ml-3 text-danger" href="/">
+                                                <a class="ml-3 text-danger"
+                                                   th:href="@{/buy/{id}(id=*{id})}">
                                                     <img src="/img/buy.png" height="35px"></a>
                                             </td>
                                         </tr>

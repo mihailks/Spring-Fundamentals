@@ -63,7 +63,7 @@ public class UserLoginController {
             return "redirect:login";
         }
 
-        userService.loginUser(userServiceModel.getId(), userLoginBindingModel.getPassword());
+        userService.loginUser(userServiceModel.getId(), userLoginBindingModel.getUsername());
 
         return "redirect:/home";
     }

@@ -17,8 +17,7 @@ public record UserRegistrationDTO(
         String firstName,
         @NotEmpty
         String lastName,
-        @NotNull
-        @Email
+
         @UniqueUserEmail
         String email,
         @NotNull

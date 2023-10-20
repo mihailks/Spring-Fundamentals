@@ -27,9 +27,16 @@ public class CategoryServiceImpl implements CategoryService {
                     CategoryEntity category = new CategoryEntity();
                     category.setName(c);
                     switch (c.name()) {
-                        case "Battle", "Cargo", "Patrol" -> category.setDescription("Some description");
+                        case "BATTLE", "CARGO", "PATROL" -> category.setDescription("Some description");
                     }
                     this.categoryRepository.save(category);
                 });
     }
+
+    @Override
+    public CategoryEntity findByName(CategoryNameEnum category) {
+        return categoryRepository.findByName(category);
+    }
+
+
 }

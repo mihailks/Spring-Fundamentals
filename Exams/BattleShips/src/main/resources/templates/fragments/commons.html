@@ -15,20 +15,25 @@
         <div class="collapse navbar-collapse" id="navbarsExampleDefault">
             <ul class="navbar-nav mr-auto">
                 <li class="nav-item active">
-                    <a class="nav-link" href="/">Home</a>
+                    <a th:if="${@currentUser.id==null}" class="nav-link" href="/">Home</a>
+                    <a th:if="${@currentUser.id!=null}" class="nav-link" href="/home">Home</a>
                 </li>
+                <th:block th:if="${@currentUser.id==null}">
                 <li class="nav-item">
                     <a class="nav-link" href="/users/login">Login</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/users/register">Register</a>
                 </li>
+                </th:block>
+                <th:block th:if="${@currentUser.id!=null}">
                 <li class="nav-item">
                     <a class="nav-link" href="/ships/add">Add Ship</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="/users/logout">Logout</a>
                 </li>
+                </th:block>
             </ul>
             <a class="nav-link" href="/">
                 <img width="50px" src="/images/ufo.png" alt="Ufo image">

@@ -42,7 +42,7 @@ public class UserRegisterController {
         userService.registerUser(userRegisterDTO);
 
 
-        return "redirect:/login";
+        return "redirect:/home";
     }
 
 

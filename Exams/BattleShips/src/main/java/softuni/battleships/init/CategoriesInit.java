@@ -1,8 +1,9 @@
 package softuni.battleships.init;
 
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.stereotype.Component;
 import softuni.battleships.service.CategoryService;
-
+@Component
 public class CategoriesInit implements CommandLineRunner {
 
     private final CategoryService categoryService;

@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:th="http://www.thymeleaf.org">
+<head th:replace="~{fragments/commons::head}"></head>
+<body>
+<header th:replace="~{fragments/commons::nav}"></header>
+<main>
+    <h1 class="text-center mt-2"><span class="badge badge-pill badge-dark">Add word</span></h1>
+    <hr class="hr-3 w-25 bg-white"/>
+
+    <form class="mx-auto w-25 bg-blur rounded" th:method="POST" th:action="@{/words/add}" th:object="${wordAddDTO}">
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="term" class="h4 mb-2">Term</label>
+            </div>
+            <textarea type="text"
+                      th:field="*{term}"
+                      th:errorclass="'is-invalid bg-danger'"
+                      class="form-control"
+                      id="term">
+            </textarea>
+            <small th:if="${#fields.hasErrors('term')}"
+                     th:errors="*{term}"
+                    class="invalid-feedback text-danger">Term error message</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="translation" class="h4 mb-2">Translation</label>
+            </div>
+            <textarea type="text"
+                        th:field="*{translation}"
+                        th:errorclass="'is-invalid bg-danger'"
+                      class="form-control"
+                      id="translation">
+            </textarea>
+            <small th:if="${#fields.hasErrors('translation')}"
+                     th:errors="*{translation}"
+                    class="invalid-feedback text-danger">Translation error message</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="example" class="h4 mb-2">Example</label>
+            </div>
+            <textarea type="text"
+                        th:field="*{example}"
+                        th:errorclass="'is-invalid bg-danger'"
+                      class="form-control"
+                      id="example">
+            </textarea>
+            <small th:if="${#fields.hasErrors('example')}"
+                     th:errors="*{example}"
+                    class="invalid-feedback text-danger">Example error message</small>
+        </div>
+
+        <div class="form-group">
+            <div class="label-holder text-white textCol d-flex justify-content-center">
+                <label for="inputDate" class="h4 mb-2">Set input date</label>
+            </div>
+            <input type="date"
+                     th:field="*{date}"
+                        th:errorclass="'is-invalid bg-danger'"
+                   class="form-control"
+                   id="inputDate"/>
+            <small th:if="${#fields.hasErrors('date')}"
+                     th:errors="*{date}"
+                    class="invalid-feedback text-danger">Input Date error message</small>
+        </div>
+
+        <div class="form-group">
+            <div class="text-white label-holder d-flex justify-content-center">
+                <label for="language" class="h4 mb-2">Language</label>
+            </div>
+            <select class="browser-default custom-select"
+                    th:field="*{language}"
+                    th:errorclass="'is-invalid bg-danger'"
+                    id="language">
+                <option value="">Select language</option>
+                <option th:each="l:${T(com.dictionaryapp.model.entity.enums.LanguageNameEnum).values()}"
+                th:text="${l}"
+                th:value="${l}">
+                </option>
+            </select>
+            <small th:if="${#fields.hasErrors('language')}"
+                     th:errors="*{language}"
+                    class="invalid-feedback text-danger">Language error message</small>
+        </div>
+
+        <div class="button-holder d-flex justify-content-center">
+            <button type="submit" class="btn btn-warning  mb-3" value="Register">Add word</button>
+        </div>
+
+    </form>
+</main>
+<footer th:replace="~{fragments/commons::footer}"></footer>
+</body>
+</html>

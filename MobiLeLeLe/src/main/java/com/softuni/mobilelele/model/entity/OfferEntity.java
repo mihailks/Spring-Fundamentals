@@ -3,12 +3,10 @@ package com.softuni.mobilelele.model.entity;
 import com.softuni.mobilelele.model.entity.enums.EngineEnum;
 import com.softuni.mobilelele.model.entity.enums.TransmissionEnum;
 import jakarta.persistence.*;
-import org.hibernate.annotations.JdbcType;
 import org.hibernate.annotations.JdbcTypeCode;
 
 import java.math.BigDecimal;
 import java.sql.Types;
-import java.util.UUID;
 
 @Entity
 @Table(name = "offers")
@@ -24,7 +22,7 @@ public class OfferEntity extends BaseEntity {
     @Enumerated(EnumType.STRING)
     private TransmissionEnum transmission;
     private String imageUrl;
-    private Long mileage;
+    private int mileage;
     private BigDecimal price;
     private int year;
 
@@ -76,11 +74,11 @@ public class OfferEntity extends BaseEntity {
         return this;
     }
 
-    public Long getMileage() {
+    public int getMileage() {
         return mileage;
     }
 
-    public OfferEntity setMileage(Long mileage) {
+    public OfferEntity setMileage(int mileage) {
         this.mileage = mileage;
         return this;
     }

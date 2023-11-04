@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+
+<head th:replace="~{fragments/head}"><title>500</title></head>
+
+<body>
+
+<div th:replace="~{fragments/navbar}"></div>
+
+<div class="container-fluid">
+    <h5 class="text-center text-white mt-5">
+        There were a 500 error and this is my custom page for it!
+    </h5>
+    <img th:src="@{/images/broken-car.jpg}" alt="Broken car" style="width: 20%">
+</div>
+
+<div>
+    <footer> </footer>
+</div>
+
+</body>
+</html>

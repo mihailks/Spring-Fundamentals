@@ -2,7 +2,6 @@ package com.softuni.mobilelele.model.dto;
 
 import com.softuni.mobilelele.model.validation.FieldMatch;
 import com.softuni.mobilelele.model.validation.UniqueUserEmail;
-import jakarta.validation.constraints.Email;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
@@ -17,7 +16,6 @@ public record UserRegistrationDTO(
         String firstName,
         @NotEmpty
         String lastName,
-
         @UniqueUserEmail
         String email,
         @NotNull

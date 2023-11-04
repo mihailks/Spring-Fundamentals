@@ -1,9 +1,11 @@
 package com.softuni.mobilelele.web;
 
 import com.softuni.mobilelele.model.dto.CreateOfferDTO;
+import com.softuni.mobilelele.model.dto.OfferDetailDTO;
 import com.softuni.mobilelele.model.entity.enums.EngineEnum;
 import com.softuni.mobilelele.service.BrandService;
 import com.softuni.mobilelele.service.OfferService;
+import com.softuni.mobilelele.service.exeption.ObjectNotFoundException;
 import jakarta.validation.Valid;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,7 +18,7 @@ import java.util.UUID;
 @Controller
 @RequestMapping("/offer")
 public class OfferController {
-    private OfferService offerService;
+    private final OfferService offerService;
     private final BrandService brandService;
 
     public OfferController(OfferService offerService, BrandService brandService) {
@@ -58,10 +60,26 @@ public class OfferController {
         return "redirect:/offer/" + newOfferUUID + "/details";
     }
 
-    @GetMapping("/{uuid}/details")
-    public String details(@PathVariable("uuid") UUID uuid) {
+    @GetMapping("/{uuid}")
+    public String details(@PathVariable("uuid") UUID uuid, Model model) {
+
+        OfferDetailDTO offerDetailDTO = offerService
+                .getOfferDetail(uuid)
+                .orElseThrow(() -> new ObjectNotFoundException("Offer with id " + uuid + " not found!"));
+
+        model.addAttribute("offer", offerDetailDTO);
+
         return "details";
     }
+
+    @DeleteMapping("/{uuid}")
+    public String delete(@PathVariable("uuid") UUID uuid){
+
+        offerService.deleteOffer(uuid);
+
+        return "redirect:/offers/all";
+    }
+
 
 
 }

@@ -1,7 +1,20 @@
 INSERT INTO users (id, is_active, email, first_name, last_name, password)
 VALUES
-    (1, 1, 'admin@example.com', 'Admin', 'Adminov', '95c1933b8ffe84f085f2839899d1673260be58dbd9c2c787ac35515805502c996417596dae9a92880aaa50a046fc7151');
+    (1, 1, 'admin@example.com', 'Admin', 'Adminov', '95c1933b8ffe84f085f2839899d1673260be58dbd9c2c787ac35515805502c996417596dae9a92880aaa50a046fc7151'),
+    (2, 1, 'misho@abv.bg', 'misho', 'misho', 'ff7df2fa52b911d8a48378082bfe2e1917ba28077a6e2924704f0f918a1f72214771b914c79a4da44b0850f3b1df95b6'),
+    (3, 1, 'gosho@abv.bg', 'gosho', 'gosho', 'ff7df2fa52b911d8a48378082bfe2e1917ba28077a6e2924704f0f918a1f72214771b914c79a4da44b0850f3b1df95b6');
 
+INSERT INTO `roles` (`id`, `role`)
+VALUES
+    (1, 'ADMIN'),
+    (2, 'USER');
+
+INSERT INTO `users_roles` (`user_id`, `role_id`)
+VALUES
+    (1, 1),
+    (1, 2),
+    (2, 1),
+    (3, 2);
 
 INSERT INTO `brands` (`id`, `name`)
 VALUES

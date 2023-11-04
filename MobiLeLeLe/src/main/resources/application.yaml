@@ -31,11 +31,14 @@ spring:
   #api-secret:
   #cloud-name:
 
-#  default.admin.pass: ${DEFAULT_ADMIN_PASS:root}
+mobilele:
+  default.admin.pass: ${DEFAULT_ADMIN_PASS:root}
+  remember.me.key: ${REMEBER_ME_KEY:topsecret}
 
 logging:
   level:
     #    org.springframework: DEBUG
     org.hibernate.SQL: DEBUG
     org.hibernate.org.jdbc.bind: TRACE
+
 

@@ -6,10 +6,12 @@ import org.springframework.stereotype.Component;
 
 @Component
 public class DBInit implements CommandLineRunner {
-//    private final String defaultAdminPass;
-//    public DBInit(@Value("${default.admin.pass}") String defaultAdminPass) {
-//        this.defaultAdminPass = defaultAdminPass;
-//    }
+
+    private final String defaultAdminPass;
+
+    public DBInit(@Value("${mobilele.default.admin.pass}") String defaultAdminPass) {
+        this.defaultAdminPass = defaultAdminPass;
+    }
 
     @Override
     public void run(String... args) throws Exception {

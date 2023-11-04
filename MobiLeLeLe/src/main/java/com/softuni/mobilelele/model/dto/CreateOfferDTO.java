@@ -1,6 +1,5 @@
 package com.softuni.mobilelele.model.dto;
 
-import com.softuni.mobilelele.model.entity.ModelEntity;
 import com.softuni.mobilelele.model.entity.enums.EngineEnum;
 import com.softuni.mobilelele.model.entity.enums.TransmissionEnum;
 import com.softuni.mobilelele.model.validation.YearNotInTheFuture;
@@ -14,7 +13,7 @@ public record CreateOfferDTO(@Size(min = 5, max = 512)
                              @NotNull EngineEnum engine,
                              @NotNull TransmissionEnum transmission,
                              @NotEmpty String imageUrl,
-                             @NotNull @Positive Long mileage,
+                             @NotNull @Positive Integer mileage,
                              @NotNull @Positive BigDecimal price,
                              @YearNotInTheFuture
                              @NotNull(message = "year can`t be empty")

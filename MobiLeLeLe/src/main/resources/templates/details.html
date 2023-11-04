@@ -1,7 +1,8 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org"
+      xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
 
-<head th:replace="~{fragments/head}"></head>
+<head th:replace="~{fragments/head}"><title>Offer details</title></head>
 
 <body>
 
@@ -10,7 +11,8 @@
 
 <div class="container-fluid">
     <h2 class="text-center text-white mt-5">Details</h2>
-    <div class="offers row mx-auto d-flex flex-row justify-content-center">
+    <div th:object="${offer}"
+            class="offers row mx-auto d-flex flex-row justify-content-center">
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0" >
 
             <div class="card-body pb-1">
@@ -19,22 +21,36 @@
             </div>
             <ul class="offer-details list-group list-group-flush">
                 <li class="list-group-item">
-                    <div class="card-text"><span>• Mileage</span></div>
-                    <div class="card-text"><span>• Price</span></div>
-                    <div class="card-text"><span>• Engine type</span></div>
-                    <div class="card-text"><span>• Transmission type</span></div>
+                    <div class="card-text">
+                        <span>• Mileage</span>
+                        <th:block th:text="*{mileage}">12345</th:block>
+                    </div>
+                    <div class="card-text">
+                        <span>• Price</span>
+                        <th:block th:text="*{price}">12345</th:block>
+                    </div>
+                    <div class="card-text">
+                        <span>• Engine type</span>
+                        <th:block th:text="*{engine}">12345</th:block>
+                    </div>
+                    <div class="card-text">
+                        <span>• Transmission type</span>
+                        <th:block th:text="*{transmission}">12345</th:block>
+                    </div>
                     <div class="card-text"><span>• Offer created</span></div>
                     <div class="card-text"><span>• Offer modified</span></div>
                     <div class="card-text"><span>• Seller - First and Last name</span></div>
                 </li>
             </ul>
-            <div class="card-body">
-                <a class="card-link" href="/">Update</a>
-                <a class="card-link" href="/">Delete</a>
+            <div class="card-body" sec:authorize="isAuthenticated()">
+                <form th:method="DELETE"
+                th:action="@{/offer/{offerUUID}(offerUUID=*{uuid})}">
+                <input type="submit" value="Delete" class="card-link"/>
+                </form>
             </div>
         </div>
         <div class="offer card col-sm-2 col-md-3  col-lg-4 m-1 p-0">
-            <img src="/" class="card-img-top"  alt="Car image">
+            <img th:src="*{imageUrl}" class="card-img-top"  alt="Car image">
         </div>
     </div>
 </div>

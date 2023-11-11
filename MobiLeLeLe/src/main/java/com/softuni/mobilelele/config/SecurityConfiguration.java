@@ -44,7 +44,7 @@ public class SecurityConfiguration {
                     // if user go to a page with authentication
                     formLogin.loginPage("/users/login")
                             // email because we set it to login with email and not an actual username
-                            .usernameParameter("email")
+                            .usernameParameter("templates/email")
                             .passwordParameter("password")
                             // if login is successful go to index
                             .defaultSuccessUrl("/")

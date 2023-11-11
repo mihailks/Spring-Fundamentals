@@ -8,7 +8,9 @@ spring:
     multipart:
       max-file-size: 1MB
       max-request-size: 5MB
-
+    thymeleaf:
+      prefix: classpath:/templates/
+      suffix: .html
   sql:
     init:
       mode: never
@@ -30,6 +32,13 @@ spring:
   #api-key:
   #api-secret:
   #cloud-name:
+
+  mail:
+    mobilele: "mobilele@test.com"
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: ${mailUsername}
+    password: ${mailPassword}
 
 mobilele:
   default.admin.pass: ${DEFAULT_ADMIN_PASS:root}

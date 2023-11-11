@@ -27,8 +27,6 @@ public class UserRegistrationController {
             model.addAttribute("userRegistrationDTO",UserRegistrationDTO.createEmpty());
         }
 
-        
-
         return "auth-register";
     }
 
@@ -43,11 +41,9 @@ public class UserRegistrationController {
             return "redirect:register";
         }
 
-
         userService.registerUser(userRegistrationDTO);
         return "redirect:/";
     }
-
 }
 
 

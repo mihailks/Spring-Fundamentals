@@ -7,10 +7,11 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Hello</title>
 </head>
-    <body>
-        <h1>Hi</h1>
-        <th:block th:text="${username}">Pesho!</th:block>
-        <p>Welcome to our site!</p>
-        <p>Please, click on the link.</p>
-    </body>
+<body>
+<h1>Hi</h1>
+<th:block th:text="${username}">Pesho!</th:block>
+<p>Welcome to our site!</p>
+<p>Please, click on the link.</p>
+<p><a class="card-link" th:href="@{http://localhost:8080/user/activate/(activation_code=*{activation_code})}">link</a></p>
+</body>
 </html>

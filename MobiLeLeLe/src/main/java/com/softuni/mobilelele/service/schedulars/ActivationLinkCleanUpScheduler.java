@@ -19,7 +19,7 @@ public class ActivationLinkCleanUpScheduler {
     public void cleanUp(){
         System.out.println("clean up links" + LocalDateTime.now());
         userActivationService.cleanObsoleteActivationLinks();
-        
+
     }
 
 }

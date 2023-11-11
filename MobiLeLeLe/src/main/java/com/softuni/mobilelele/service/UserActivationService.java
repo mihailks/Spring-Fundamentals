@@ -7,4 +7,5 @@ public interface UserActivationService {
     void userRegister(UserRegisterEvent event);
 
     void cleanObsoleteActivationLinks();
+    String createActivationCode(String userEmail);
 }

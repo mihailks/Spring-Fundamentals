@@ -13,11 +13,11 @@ spring:
         enabled: true
 
   mail:
-    mobilele: "mobilele@test.com"
-    host: sandbox.smtp.mailtrap.io
-    port: 2525
-    username: test
-    password: test
+    mobilele: "mobilele@example.com"
+    host: localhost
+    port: 3333
+    username: test@example.com
+    password: topsecret
 
 mobilele:
   default.admin.pass: root

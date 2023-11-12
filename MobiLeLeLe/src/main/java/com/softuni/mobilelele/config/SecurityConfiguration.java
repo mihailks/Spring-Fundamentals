@@ -34,6 +34,7 @@ public class SecurityConfiguration {
                         // allow access to index and user login and register to anyone
                         .requestMatchers("/", "/users/login", "/users/register", "/users/login-error", "/offers/all").permitAll()
                         .requestMatchers("/error").permitAll()
+                        .requestMatchers("/api/currency/convert").permitAll()
                         .requestMatchers(HttpMethod.GET, "/offers/**").permitAll()
                         .requestMatchers("/brands").hasRole(UserRoleEnum.ADMIN.name())
                         // all other requests are authenticated.

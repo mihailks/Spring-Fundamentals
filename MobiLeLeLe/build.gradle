@@ -28,7 +28,8 @@ dependencies {
 	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity6'
 
 	implementation 'org.springframework.boot:spring-boot-starter-mail'
-
+	testImplementation 'org.springframework.boot:spring-boot-starter-test'
+	testImplementation 'org.hsqldb:hsqldb'
 
 }
 

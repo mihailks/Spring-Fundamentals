@@ -1,0 +1,32 @@
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: create-drop
+    defer-datasource-initialization: true
+  sql:
+    init:
+      mode: never
+
+  mvc:
+    hiddenmethod:
+      filter:
+        enabled: true
+
+  mail:
+    mobilele: "mobilele@test.com"
+    host: sandbox.smtp.mailtrap.io
+    port: 2525
+    username: test
+    password: test
+
+mobilele:
+  default.admin.pass: root
+  remember.me.key: topsecret
+
+logging:
+  level:
+    #    org.springframework: DEBUG
+    org.hibernate.SQL: DEBUG
+    org.hibernate.org.jdbc.bind: TRACE
+
+

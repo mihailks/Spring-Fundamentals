@@ -5,10 +5,12 @@ import com.softuni.mobilelele.model.entity.enums.UserRoleEnum;
 import com.softuni.mobilelele.repository.UserRepository;
 import com.softuni.mobilelele.service.impl.MobileleUserDetailService;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.actuate.autoconfigure.security.servlet.EndpointRequest;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -16,6 +18,7 @@ import org.springframework.security.crypto.password.Pbkdf2PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
 @Configuration
+@EnableMethodSecurity
 public class SecurityConfiguration {
     private final String rememberMeKey;
 
@@ -31,6 +34,8 @@ public class SecurityConfiguration {
                 authorizeRequests -> authorizeRequests
                         // allow access to static resources to anyone
                         .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
+                        //access to actuator endpoints
+//                        .requestMatchers(EndpointRequest.toAnyEndpoint()).permitAll()
                         // allow access to index and user login and register to anyone
                         .requestMatchers("/", "/users/login", "/users/register", "/users/login-error", "/offers/all").permitAll()
                         .requestMatchers("/error").permitAll()
@@ -45,7 +50,7 @@ public class SecurityConfiguration {
                     // if user go to a page with authentication
                     formLogin.loginPage("/users/login")
                             // email because we set it to login with email and not an actual username
-                            .usernameParameter("templates/email")
+                            .usernameParameter("email")
                             .passwordParameter("password")
                             // if login is successful go to index
                             .defaultSuccessUrl("/")

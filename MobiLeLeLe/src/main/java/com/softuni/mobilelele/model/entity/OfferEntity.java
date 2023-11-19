@@ -25,6 +25,8 @@ public class OfferEntity extends BaseEntity {
     private int mileage;
     private BigDecimal price;
     private int year;
+    @ManyToOne
+    private UserEntity seller;
 
     public OfferEntity() {
     }
@@ -107,6 +109,15 @@ public class OfferEntity extends BaseEntity {
 
     public OfferEntity setUuid(java.util.UUID uuid) {
         this.uuid = uuid;
+        return this;
+    }
+
+    public UserEntity getSeller() {
+        return seller;
+    }
+
+    public OfferEntity setSeller(UserEntity seller) {
+        this.seller = seller;
         return this;
     }
 }

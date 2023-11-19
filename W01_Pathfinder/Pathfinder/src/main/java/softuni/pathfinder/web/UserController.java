@@ -15,7 +15,7 @@ import softuni.pathfinder.service.UserService;
 
 @Controller
 @RequestMapping("/users")
-public class eUserController {
+public class UserController {
     private final UserService userService;
     private final ModelMapper modelMapper;
 

@@ -58,4 +58,12 @@ open.exchange.rates:
   symbols: EUR,BGN
   enabled: false
 
+management:
+  server:
+    port: 8081
+  endpoints:
+    web:
+      base-path: /actuator
+      exposure:
+        include: "*"
 

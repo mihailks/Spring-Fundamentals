@@ -21,7 +21,6 @@ public class UserActivationServiceImpl implements UserActivationService {
     private static final int ACTIVATION_CODE_LENGTH = 20;
     private final EmailService emailService;
     private final UserRepository userRepository;
-
     private final UserActivationLinkRepository userActivationLinkRepository;
 
     public UserActivationServiceImpl(EmailService emailService, UserRepository userRepository, UserActivationLinkRepository userActivationLinkRepository) {

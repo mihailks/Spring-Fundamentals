@@ -7,6 +7,9 @@ import com.softuni.mobilelele.service.BrandService;
 import com.softuni.mobilelele.service.OfferService;
 import com.softuni.mobilelele.service.exeption.ObjectNotFoundException;
 import jakarta.validation.Valid;
+import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -47,7 +50,8 @@ public class OfferController {
     @PostMapping("/add")
     public String add(@Valid CreateOfferDTO createOfferDTO,
                       BindingResult bindingResult,
-                      RedirectAttributes redirectAttributes) {
+                      RedirectAttributes redirectAttributes,
+                      @AuthenticationPrincipal UserDetails owner) {
 
         if(bindingResult.hasErrors()){
             redirectAttributes.addFlashAttribute("createOfferDTO", createOfferDTO);
@@ -55,16 +59,18 @@ public class OfferController {
             return "redirect:add";
         }
 
-        UUID newOfferUUID = offerService.createOffer(createOfferDTO);
+        UUID newOfferUUID = offerService.createOffer(createOfferDTO, owner);
 
-        return "redirect:/offer/" + newOfferUUID + "/details";
+//        return "redirect:/offer/" + newOfferUUID + "/details";
+        return "redirect:/offer/" + newOfferUUID;
     }
 
     @GetMapping("/{uuid}")
-    public String details(@PathVariable("uuid") UUID uuid, Model model) {
+    public String details(@PathVariable("uuid") UUID uuid, Model model,
+                          @AuthenticationPrincipal UserDetails viewer) {
 
         OfferDetailDTO offerDetailDTO = offerService
-                .getOfferDetail(uuid)
+                .getOfferDetail(uuid, viewer)
                 .orElseThrow(() -> new ObjectNotFoundException("Offer with id " + uuid + " not found!"));
 
         model.addAttribute("offer", offerDetailDTO);
@@ -72,14 +78,13 @@ public class OfferController {
         return "details";
     }
 
+@PreAuthorize("@offerServiceImpl.isOwner(#uuid, #principal)")
     @DeleteMapping("/{uuid}")
-    public String delete(@PathVariable("uuid") UUID uuid){
+    public String delete(@PathVariable("uuid") UUID uuid, @AuthenticationPrincipal UserDetails principal){
 
         offerService.deleteOffer(uuid);
 
         return "redirect:/offers/all";
     }
-
-
 
 }

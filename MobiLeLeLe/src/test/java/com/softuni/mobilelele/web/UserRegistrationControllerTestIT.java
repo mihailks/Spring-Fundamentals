@@ -34,7 +34,6 @@ class UserRegistrationControllerTestIT {
     @Value("${spring.mail.password}")
     private String password;
 
-
     private GreenMail greenMail;
 
     @BeforeEach
@@ -63,7 +62,9 @@ class UserRegistrationControllerTestIT {
                 .andExpect(view().name("redirect:/"));
 
         greenMail.waitForIncomingEmail(1);
+
         MimeMessage[] receivedMessages = greenMail.getReceivedMessages();
+
         Assertions.assertEquals(1, receivedMessages.length);
 
         MimeMessage receivedMessage = receivedMessages[0];

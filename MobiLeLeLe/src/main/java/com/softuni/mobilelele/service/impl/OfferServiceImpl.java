@@ -9,6 +9,7 @@ import com.softuni.mobilelele.repository.ModelRepository;
 import com.softuni.mobilelele.repository.OfferRepository;
 import com.softuni.mobilelele.repository.UserRepository;
 import com.softuni.mobilelele.service.OfferService;
+import com.softuni.mobilelele.service.aop.WornIfTimeExecutionExceeds;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +18,9 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
+import java.util.logging.Logger;
+
+import static java.lang.Thread.sleep;
 
 @Service
 public class OfferServiceImpl implements OfferService {
@@ -34,22 +38,29 @@ public class OfferServiceImpl implements OfferService {
     public UUID createOffer(CreateOfferDTO createOfferDTO, UserDetails owner) {
         OfferEntity newOffer = map(createOfferDTO);
         ModelEntity modelEntity = modelRepository.findById(createOfferDTO.modelId())
-                .orElseThrow(()-> new IllegalArgumentException("Model with id " + createOfferDTO.modelId() + " not found!"));
+                .orElseThrow(() -> new IllegalArgumentException("Model with id " + createOfferDTO.modelId() + " not found!"));
         newOffer.setModel(modelEntity);
         newOffer.setSeller(userRepository.findByEmail(owner.getUsername())
-                .orElseThrow(()-> new IllegalArgumentException("User with email " + owner.getUsername() + " not found!")));
+                .orElseThrow(() -> new IllegalArgumentException("User with email " + owner.getUsername() + " not found!")));
 
         offerRepository.save(newOffer);
         return newOffer.getUuid();
     }
 
+    @WornIfTimeExecutionExceeds(timeInMillis = 1000L)
     @Override
     public Page<OfferSummeryDTO> getAllOffers(Pageable pageable) {
+//        try { // for testing purposes
+//            sleep(1000L);
+//        } catch (InterruptedException e) {
+//            System.out.println("Interrupted!");
+//        }
         return offerRepository
                 .findAll(pageable)
                 .map(OfferServiceImpl::mapAsSummary);
     }
 
+    @WornIfTimeExecutionExceeds(timeInMillis = 500L)
     @Override
     public Optional<OfferDetailDTO> getOfferDetail(UUID offerUUID, UserDetails viewer) {
         return offerRepository
@@ -66,25 +77,25 @@ public class OfferServiceImpl implements OfferService {
     @Override
     public Boolean isOwner(UUID offerUUID, UserDetails owner) {
         OfferEntity offerEntity = offerRepository.findByUuid(offerUUID).orElse(null);
-        if (offerEntity == null){
+        if (offerEntity == null) {
             return false;
         }
         return isOwner(offerEntity, owner);
     }
 
-    private Boolean isOwner(OfferEntity offerEntity, UserDetails viewer){
-        if (viewer == null){
+    private Boolean isOwner(OfferEntity offerEntity, UserDetails viewer) {
+        if (viewer == null) {
             return false;
         }
         boolean isAdmin = viewer.getAuthorities().stream()
                 .anyMatch(a -> a.getAuthority().equals("ROLE_ADMIN"));
-        if (isAdmin){
+        if (isAdmin) {
             return true;
         }
         return offerEntity.getSeller().getEmail().equals(viewer.getUsername());
     }
 
-    private static OfferSummeryDTO mapAsSummary(OfferEntity offerEntity){
+    private static OfferSummeryDTO mapAsSummary(OfferEntity offerEntity) {
         return new OfferSummeryDTO(
                 offerEntity.getUuid(),
                 offerEntity.getModel().getBrand().getName(),
@@ -97,7 +108,7 @@ public class OfferServiceImpl implements OfferService {
                 offerEntity.getImageUrl());
     }
 
-    private OfferEntity map(CreateOfferDTO createOfferDTO){
+    private OfferEntity map(CreateOfferDTO createOfferDTO) {
         return new OfferEntity()
                 .setUuid(UUID.randomUUID())
                 .setDescription(createOfferDTO.description())
@@ -108,7 +119,8 @@ public class OfferServiceImpl implements OfferService {
                 .setPrice(createOfferDTO.price())
                 .setYear(createOfferDTO.year());
     }
-    private OfferDetailDTO mapAsDetails(OfferEntity offerEntity, UserDetails viewer){
+
+    private OfferDetailDTO mapAsDetails(OfferEntity offerEntity, UserDetails viewer) {
         return new OfferDetailDTO(
                 offerEntity.getUuid(),
                 offerEntity.getModel().getBrand().getName(),

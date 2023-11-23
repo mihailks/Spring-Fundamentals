@@ -12,15 +12,16 @@
     <form th:action="@{/users/register}"
           th:object="${userRegistrationDTO}"
           th:method="POST"
-          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center">
+          class="main-form mx-auto col-md-8 d-flex flex-column justify-content-center"
+          id="registration-form">
         <div class="row">
             <div class="form-group col-md-6 mb-3">
                 <label for="firstName" class="text-white font-weight-bold">First Name</label>
-                <input  id="firstName"
-                        th:field="*{firstName}"
-                        th:errorclass="is-invalid"
-                        type="text"
-                        class="form-control"
+                <input id="firstName"
+                       th:field="*{firstName}"
+                       th:errorclass="is-invalid"
+                       type="text"
+                       class="form-control"
                        placeholder="First name"/>
                 <p class="invalid-feedback errors alert alert-danger">
                     First name is required.
@@ -81,30 +82,48 @@
 
         </div>
 
-<!--        // TODO: SELECT A ROLE-->
-<!--        <div class="form-group">-->
-<!--            <label class="text-center text-white font-weight-bold" for="roles">Roles</label>-->
-<!--            <select  id="roles" class="form-control" multiple>-->
-<!--                <option>-->
-<!--                </option>-->
-<!--            </select>-->
-<!--            <p class="errors alert alert-danger">-->
-<!--                Selecting a role is required.-->
-<!--            </p>-->
-<!--        </div>-->
+        <!--        // TODO: SELECT A ROLE-->
+        <!--        <div class="form-group">-->
+        <!--            <label class="text-center text-white font-weight-bold" for="roles">Roles</label>-->
+        <!--            <select  id="roles" class="form-control" multiple>-->
+        <!--                <option>-->
+        <!--                </option>-->
+        <!--            </select>-->
+        <!--            <p class="errors alert alert-danger">-->
+        <!--                Selecting a role is required.-->
+        <!--            </p>-->
+        <!--        </div>-->
 
         <div class="row">
             <div class="col col-md-4">
                 <div class="button-holder d-flex">
-                    <input type="submit" class="btn btn-info btn-lg" value="Register"/>
+                    <!--                    <input type="submit" class="btn btn-info btn-lg" value="Register"/>-->
+                    <button class="g-recaptcha btn btn-info btn-lg"
+                            th:attr="data-sitekey=${@reCaptchaConfig.getSiteKey()}"
+                            data-callback='onSubmit'
+                            data-action='submit'>Register
+                    </button>
                 </div>
             </div>
         </div>
     </form>
 </div>
 
+
+<!-- ReCaptcha -->
+
+<script src="https://www.google.com/recaptcha/api.js"></script>
+
+<script>
+    function onSubmit(token) {
+        document.getElementById("registration-form").submit();
+    }
+</script>
+
+<!-- EO: ReCaptcha -->
+
 <div>
-     <footer> </footer>
+    <footer></footer>
 </div>
 
 </body>

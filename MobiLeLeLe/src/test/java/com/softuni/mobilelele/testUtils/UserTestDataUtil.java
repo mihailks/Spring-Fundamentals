@@ -17,25 +17,25 @@ public class UserTestDataUtil {
     @Autowired
     private UserRepository userRepository;
 
-    public UserEntity createUser(List<UserRoleEnum> roles) {
+    public UserEntity createTestUser(String email) {
+        return createUser(email, List.of(UserRoleEnum.USER));
+    }
+
+    public UserEntity createTestAdmin(String email) {
+        return createUser(email, List.of(UserRoleEnum.ADMIN));
+    }
+
+    private UserEntity createUser(String email, List<UserRoleEnum> roles) {
         var rolesFromDb = userRoleRepository.findAllByRoleIn(roles);
 
         UserEntity userEntity = new UserEntity()
-                .setEmail("test@email.com")
+                .setEmail(email)
                 .setPassword("test")
                 .setFirstName("testFirstName")
                 .setLastName("testLastName")
                 .setActive(true)
                 .setRoles(rolesFromDb);
         return userRepository.save(userEntity);
-    }
-
-    public UserEntity createTestUser(String username, String password) {
-        return createUser(List.of(UserRoleEnum.USER));
-    }
-
-    public UserEntity createTestAdmin(String username, String password) {
-        return createUser(List.of(UserRoleEnum.ADMIN));
     }
 
     public void cleanUp() {

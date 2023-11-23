@@ -9,6 +9,7 @@ import com.softuni.mobilelele.repository.ModelRepository;
 import com.softuni.mobilelele.repository.OfferRepository;
 import com.softuni.mobilelele.repository.UserRepository;
 import com.softuni.mobilelele.service.OfferService;
+import com.softuni.mobilelele.service.RecaptchaService;
 import com.softuni.mobilelele.service.aop.WornIfTimeExecutionExceeds;
 import jakarta.transaction.Transactional;
 import org.springframework.data.domain.Page;
@@ -18,7 +19,6 @@ import org.springframework.stereotype.Service;
 
 import java.util.Optional;
 import java.util.UUID;
-import java.util.logging.Logger;
 
 import static java.lang.Thread.sleep;
 
@@ -134,4 +134,5 @@ public class OfferServiceImpl implements OfferService {
                 offerEntity.getSeller().getFirstName() + " " + offerEntity.getSeller().getLastName(),
                 isOwner(offerEntity, viewer));
     }
+
 }

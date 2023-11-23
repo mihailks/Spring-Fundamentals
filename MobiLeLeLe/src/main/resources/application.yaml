@@ -67,3 +67,8 @@ management:
       exposure:
         include: "*"
 
+
+google.recaptcha:
+    siteKey: ${GOOGLE_RECAPTCHA_SITE_KEY}
+    secretKey: ${GOOGLE_RECAPTCHA_SECRET_KEY}
+

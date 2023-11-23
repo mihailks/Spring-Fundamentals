@@ -15,7 +15,7 @@ public class BrandEntity extends BaseEntity {
     @Column(unique = true, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "brand", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<ModelEntity> models;
 
     public BrandEntity() {
